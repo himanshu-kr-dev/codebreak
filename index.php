@@ -11,6 +11,8 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300&display=swap" rel="stylesheet">
     <title>Break Code</title>
     <style>
         .navbar-brand{
@@ -29,13 +31,28 @@
             border-radius: 10px;
             padding: 10px;
         }
+        .alert{
+            width: 800px;
+        }
+        .body-text{
+            font-family: 'Fira Code', monospace;
+        }
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: #414141;
+            font-family: 'Fira Code', monospace;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Break Code</a>
+        <a class="navbar-brand" href="#">Code Break</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -45,7 +62,7 @@
                     <a class="nav-link active" aria-current="page" href="#">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Problems</a>
+                    <a class="nav-link" href="problems/">Problems</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Forum</a>
@@ -55,57 +72,30 @@
     </div>
 
 </nav>
-<br><br><br><br>
-    <div class="accordion" id="accordionExample">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Encryption
-                </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                A data given as: "Hi how are you guys" *without quotes*<br>
-                    When this data is encrypted using a certain encryption algorithms the output provided is: "Jo jpe str upi" *without quotes*<br>
-                    Can you break the encryption algorithm and write a decryption algorithm for it?
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Sample Encrypted data #1
-                </button>
-            </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                Data: "You are a great person"<br>
-                    Encrypted data:"Upi ste s htrsy artdpm"<br>
-                    *all without quotes, and take care of case of alphabets*
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Your task
-                </button>
-            </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                Find the decrypted data for the following data: "Yjsy esd atryyu rsdu kjhui wjhi lkah ejhs uious ajhfi ashjhf fsjhdfh fjsdh weriowe xcrwerj"<br>
-                    *without quotes*
-                </div>
-            </div>
-        </div>
-    </div>
-<br><br><br>
+<br>
 <center>
-    <form>
-        <input class="answer" required type="text" placeholder="Solution"><br><br>
-        <button type="submit">Submit</button>
-    </form>
-    <br><br>
+
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <strong>Welcome Code Breaker!</strong> Please Login or Signup to solve problems and keep track of them.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+
+</div>
+<br><br>
+<div class="body-text">
+    Are you the greatest code breaker? Can you break the encryption behind? Show us what you got.<br>
+    Here you will be given various levels of encryption in which you will be given a raw data and <br>
+    it's encrypted form, all you have to do is break the encryption and write a decryption algorithm<br>
+    so that you can get back from the encrypted data to the actual data. So show the world your code <br>breaking skills.
+</div>
+    <br><br><br><br>
+    <a href="login/"><button type="button" class="btn btn-primary">Login</button></a> &nbsp;&nbsp;
+    <a href="signup/"><button type="button" class="btn btn-secondary">Signup</button></a>
 </center>
+
+
+<div class="footer">
+    <p>Copyright 2021 Daero | Privacy Policy</p>
+</div>
 </body>
 </html>
