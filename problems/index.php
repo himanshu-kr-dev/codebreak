@@ -1,10 +1,16 @@
 <?php
-$conn = mysqli_connect("localhost","root","","codebreak");
+session_start();
+$conf = 0;
+if (isset($_SESSION['sign']) && isset($_SESSION['uid']) && ($_SESSION['sign'] == 1 || $_SESSION['sign'] == "1")) {
+    $conf = 1;
+}
+$conn = mysqli_connect("localhost", "root", "", "codebreak");
 $sql = "SELECT * FROM problems";
-$query = mysqli_query($conn,$sql);
+$query = mysqli_query($conn, $sql);
 ?>
 <!doctype html>
 <html lang="en">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -18,76 +24,98 @@ $query = mysqli_query($conn,$sql);
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <title>Break Code</title>
     <style>
-        .navbar-brand{
+        .navbar-brand {
             font-family: 'Press Start 2P', cursive;
         }
-        .nav-link{
+
+        .nav-link {
             font-family: 'Press Start 2P', cursive;
         }
-        .accordion{
-            margin:50px;
+
+        .accordion {
+            margin: 50px;
         }
-        .answer{
+
+        .answer {
             width: 300px;
             height: 50px;
             border: 1px solid black;
             border-radius: 10px;
             padding: 10px;
         }
-        .table{
+
+        .table {
             margin: 0 auto;
             width: 400px;
         }
     </style>
 </head>
+
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Code Break</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Problems</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Forum</a>
-                </li>
-            </ul>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Code Break</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Problems</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Forum</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
 
-</nav>
-<br><br><br><br>
-<table class="table table-hover">
-    <thead>
-    <td>Problem ID</td><td>Problem Name</td><td>Problem Link</td>
-    </thead>
-    <tbody>
-<?php
-$c = mysqli_num_rows($query);
-while ($c>0){
-    $sq = "SELECT * FROM problems WHERE id=$c";
-    $query = mysqli_query($conn,$sq);
-    $row = mysqli_fetch_assoc($query);
-    ?>
-    <tr><td><?php echo $row["id"];?></td><td><?php echo $row["name"];?></td><td><a href="#">View</a> </td></tr>
-<?php
-    $c--;
-}
-?>
+    </nav>
+    <br><br><br><br>
+    <table class="table table-hover">
+        <thead>
+            <td>Problem ID</td>
+            <td>Problem Name</td>
+            <td>Problem Link</td>
+            <?php if ($conf == 1) {  ?>
+                <td>Submission Link </td>
+            <?php } ?>
+        </thead>
+        <tbody>
+            <?php
+            $c = mysqli_num_rows($query);
+            while ($c > 0) {
+                $sq = "SELECT * FROM problems WHERE id=$c";
+                $query = mysqli_query($conn, $sq);
+                $row = mysqli_fetch_assoc($query);
+            ?>
+                <tr>
+                    <td><?php echo $row["id"]; ?></td>
+                    <td><?php echo $row["name"]; ?></td>
+                    <td><a href="../prob?id=<?php echo $row['id']; ?>">View</a> </td>
+                    <?php if ($conf == 1) {  ?>
+                        <td><a href="#">Submit</a> </td>
+                    <?php } ?>
+                </tr>
+            <?php
+                $c--;
+            }
+            ?>
 
 
 
 
-    </tbody>
+        </tbody>
 
-</table>
+    </table>
 </body>
+
 </html>
+
+<?php
+mysqli_close($conn);
+?>
