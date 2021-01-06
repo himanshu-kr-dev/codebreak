@@ -2,13 +2,17 @@
 session_start();
 
 $conf = 0;
+$userid;
 if (isset($_SESSION['sign']) && isset($_SESSION['uid']) && ($_SESSION['sign'] == 1 || $_SESSION['sign'] == "1")) {
     $conf = 1;
+    $userid = $_SESSION['uid'];
 }
 $idver = 0;
 $conn = mysqli_connect("localhost", "root", "", "codebreak");
 $sql = "SELECT * FROM problems";
 $query = mysqli_query($conn, $sql);
+
+
 $id;
 $problem_data;
 if ($_GET['id'] && !is_nan($_GET['id'])) {
@@ -98,89 +102,92 @@ $probtask = $problem_data['task'];
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Code Break</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="../">Code Break</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../problems/">Problems</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../news/">News</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</nav>
+<br>
+<center>
+    <span class="heading"> <?php echo $probname; ?></span>
+</center>
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Encryption
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="problems/">Problems</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Forum</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </nav>
-    <br>
-    <center>
-        <span class="heading"> <?php echo $probname; ?></span>
-    </center>
-    <div class="accordion" id="accordionExample">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Encryption
-                </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <?php echo $probstat; ?>
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Sample Encrypted data
-                </button>
-            </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <?php echo $probtest; ?>
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    User Task
-                </button>
-            </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <?php echo $probtask; ?>
-                    <br><br>
-                    <?php if ($conf == 1) { ?>
-                        <form>
-                            <textarea class="answer" name="solution" type="text" required></textarea><br>
-                            <button type="submit">Submit</button>
-                        </form>
-
-                    <?php  } else { ?>
-                        Login to Submit your solution
-                    <?php  } ?>
-
-
-
-                </div>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <?php echo $probstat; ?>
             </div>
         </div>
     </div>
-    <br><br>
-    <center>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Sample Encrypted data
+            </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <?php echo $probtest; ?>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                User Task
+            </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <?php echo $probtask; ?>
+                <?php if ($conf == 1) { ?>
+                    <form action="../checker/" method="post">
+                        <input name="id" type="number" value="<?php echo $id;?>" style="visibility: hidden">
+                        <input name="name" type="text" value="<?php echo $probname;?>" style="visibility: hidden">
+                        <input name="userid" type="text" value="<?php echo $userid;?>" style="visibility: hidden">
+                        <br>
+                        <textarea id="solution" class="answer" name="user_solution" type="text" required></textarea><br>
+                        <button type="submit">Submit</button>
+                    </form>
+
+                <?php  } else { ?>
+                    Login to Submit your solution
+                <?php  } ?>
 
 
-    </center>
-    <br>
+
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
+<center>
+
+
+</center>
+<br>
 
 </body>
 
