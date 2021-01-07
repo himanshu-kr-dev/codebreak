@@ -95,7 +95,10 @@ $probtask = $problem_data['task'];
 
         .heading {
             font-family: 'Fira Code', monospace;
-            font-size: 20px;
+            font-size: 30px;
+        }
+        .card{
+            margin: 20px;
         }
     </style>
 </head>
@@ -119,6 +122,19 @@ $probtask = $problem_data['task'];
                 <li class="nav-item">
                     <a class="nav-link" href="../news/">News</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../user/"><?php if($conf==1){echo $_SESSION['uid'];}?></a>
+                </li>
+
+                <?php
+                if($conf==1){
+                    ?>
+                    <li class="nav-item">
+                        <a class="body-text" style="font-size: 15px;text-decoration: none;color: #414141;" href="../logout/">Logout</a>
+                    </li>
+                    <?php
+                }
+                ?>
             </ul>
         </div>
     </div>
@@ -128,58 +144,48 @@ $probtask = $problem_data['task'];
 <center>
     <span class="heading"> <?php echo $probname; ?></span>
 </center>
-<div class="accordion" id="accordionExample">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Encryption
-            </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <?php echo $probstat; ?>
-            </div>
-        </div>
+<br>
+<div class="card">
+    <div class="card-header">
+        Problem Statement
     </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Sample Encrypted data
-            </button>
-        </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <?php echo $probtest; ?>
-            </div>
-        </div>
+    <div class="card-body">
+        <blockquote class="blockquote mb-0">
+            <?php echo $probstat; ?>
+        </blockquote>
     </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                User Task
-            </button>
-        </h2>
-        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <?php echo $probtask; ?>
-                <?php if ($conf == 1) { ?>
-                    <form action="../checker/" method="post">
-                        <input name="id" type="number" value="<?php echo $id;?>" style="visibility: hidden">
-                        <input name="name" type="text" value="<?php echo $probname;?>" style="visibility: hidden">
-                        <input name="userid" type="text" value="<?php echo $userid;?>" style="visibility: hidden">
-                        <br>
-                        <textarea id="solution" class="answer" name="user_solution" type="text" required></textarea><br>
-                        <button type="submit">Submit</button>
-                    </form>
+</div>
+<div class="card">
+    <div class="card-header">
+        Sample Test Data
+    </div>
+    <div class="card-body">
+        <blockquote class="blockquote mb-0">
+            <?php echo $probtest; ?>
+        </blockquote>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        User Task
+    </div>
+    <div class="card-body">
+        <blockquote class="blockquote mb-0">
+            <?php echo $probtask; ?>
+            <?php if ($conf == 1) { ?>
+                <form action="../checker/" method="post">
+                    <input name="id" type="number" value="<?php echo $id;?>" style="visibility: hidden">
+                    <input name="name" type="text" value="<?php echo $probname;?>" style="visibility: hidden">
+                    <input name="userid" type="text" value="<?php echo $userid;?>" style="visibility: hidden">
+                    <br>
+                    <textarea id="solution" class="answer" name="user_solution" type="text" required></textarea><br>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
 
-                <?php  } else { ?>
-                    Login to Submit your solution
-                <?php  } ?>
-
-
-
-            </div>
-        </div>
+            <?php  } else { ?>
+                Login to Submit your solution
+            <?php  } ?>
+        </blockquote>
     </div>
 </div>
 <br><br>
