@@ -185,10 +185,10 @@ function showHint(str) {
                     <a class="nav-link active" aria-current="page" href="#">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="problems/">Problems</a>
+                    <a class="nav-link" href="../problems/">Problems</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Forum</a>
+                    <a class="nav-link" href="../news/">News</a>
                 </li>
             </ul>
         </div>
@@ -221,9 +221,9 @@ function showHint(str) {
             </center>
         </div>
     </div>
-    <div class="footer">
-        <p>Copyright 2021 Daero | Privacy Policy</p>
-    </div>
+<!--    <div class="footer">-->
+<!--        <p>Copyright 2021 Daero | Privacy Policy</p>-->
+<!--    </div>-->
 </body>
 
 </html>
