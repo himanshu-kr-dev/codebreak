@@ -73,10 +73,13 @@ if (isset($_SESSION['sign']) && isset($_SESSION['uid']) && ($_SESSION['sign'] ==
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">About</a>
+                    <a class="nav-link" aria-current="page" href="#">About</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="problems/">Problems</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="news/">News</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="user/"><?php if($conf==1){echo $_SESSION['uid'];}?></a>
