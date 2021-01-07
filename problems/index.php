@@ -22,6 +22,7 @@ $query = mysqli_query($conn, $sql);
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300&display=swap" rel="stylesheet">
         <title>Break Code</title>
         <style>
             .navbar-brand {
@@ -51,6 +52,9 @@ $query = mysqli_query($conn, $sql);
             .alert{
                 margin: 50px;
             }
+            .body-text {
+                font-family: 'Fira Code', monospace;
+            }
         </style>
     </head>
 
@@ -73,6 +77,19 @@ $query = mysqli_query($conn, $sql);
                     <li class="nav-item">
                         <a class="nav-link" href="../news/">News</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../user/"><?php if($conf==1){echo $_SESSION['uid'];}?></a>
+                    </li>
+
+                    <?php
+                    if($conf==1){
+                        ?>
+                        <li class="nav-item">
+                            <a class="body-text" style="font-size: 15px;text-decoration: none;color: #414141;" href="../logout/">Logout</a>
+                        </li>
+                        <?php
+                    }
+                    ?>
                 </ul>
             </div>
         </div>
