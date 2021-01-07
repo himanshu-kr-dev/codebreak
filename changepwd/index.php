@@ -45,23 +45,23 @@ if (isset($_POST['update'])) {
             $query2 = mysqli_query($con, $sql2);
 
             if ($query2) {
-?>
+                ?>
                 <script>
                     window.location.href = "#saved";
                 </script>
 
-            <?php
+                <?php
 
                 $flag = 1;
             } else {
 
-            ?>
+                ?>
 
                 <script>
                     window.location.href = "#wrong";
                 </script>
 
-            <?php
+                <?php
                 if ($flag != 2)
                     $flag = 2;
             }
@@ -73,7 +73,7 @@ if (isset($_POST['update'])) {
                 window.location.href = "#later";
             </script>
 
-<?php
+            <?php
 
             $flag = 3;
         }
@@ -194,6 +194,11 @@ if (isset($_POST['update'])) {
             font-family: 'Fira Code', monospace;
             text-align: center;
         }
+        .nav{
+            font-family: 'Fira Code', monospace;
+            margin: 10px;
+            font-size: 13px;
+        }
     </style>
 
 </head>
@@ -225,92 +230,120 @@ if (isset($_SESSION['uid'])) {
 
 <script>
     document.title = "<?php if (isset($_SESSION['uid'])) {
-                            echo $rows['fname'] . " " . $rows['lname'] . " - Break Code";
-                        }  ?>";
+        echo $rows['fname'] . " " . $rows['lname'] . " - Break Code";
+    }  ?>";
 </script>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Code Break</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="problems/">Problems</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Forum</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </nav>
-    <div class="container">
-
-        <center>
-
-
-            <br>
-
-            <p class=text>
-
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="../">Code Break</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="../about/">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../problems/">Problems</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../news/">News</a>
+                </li>
                 <?php
-
-                if (isset($_SESSION['uid'])) {
-
+                if($conf==1){
+                    ?>
+                    <li class="nav-item">
+                        <a class="body-text" style="font-size: 15px;text-decoration: none;color: #414141;" href="../logout/">Logout</a>
+                    </li>
+                    <?php
+                }
                 ?>
+            </ul>
+        </div>
+    </div>
 
-            <form method="post" action="" enctype="multipart/form-data">
+</nav>
+<br>
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="../user/"><?php echo $_SESSION['uid'];?></a>
+    </li>
+    <li class="nav-item dropdown ">
+        <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Settings</a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="../edit/">Edit Details</a></li>
+            <li><a class="dropdown-item" href="#">Change Password</a></li>
+        </ul>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Recent Submissions</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Codes Broken</a>
+    </li>
+</ul><br>
+<div class="container">
 
-                <?php if ($msg1 != "" && isset($msg1)) {
-                        echo $msg1 . "<br>";
-                    } ?>
-                <div class="mb-3">
-                    <!-- <label for="exampleFormControlInput1" class="form-label">Email address</label> -->
-                    <input style="text-align:center;" type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Current Password">
-                </div>
-                <div class="mb-3">
-                    <!-- <label for="exampleFormControlInput1" class="form-label">Email address</label> -->
-                    <input style="text-align:center;" type="password" class="form-control" id="npassword" name="npassword" placeholder="New Password">
-                </div>
-                <div class="mb-3">
-                    <!-- <label for="exampleFormControlInput1" class="form-label">Email address</label> -->
-                    <input style="text-align:center;" type="password" class="form-control" id="cnpassword" name="cnpassword" placeholder="Confirm New Password">
-                </div>
+    <center>
 
-                <br>
 
-                <input class="btn btn-primary" style="font-size:17px;" type=submit name=update value="Update"><br><br>
+        <br>
 
-            </form>
+        <p class=text>
 
             <?php
 
-                    if ($flag == 1) {
-
-                        echo "<font id='saved' style='padding:10px;background:gainsboro;' color=green size=3>Successfully Changed</font>";
-                    } else if ($flag == 2) {
-
-                        echo "<font id='wrong' style='padding:10px;background:gainsboro;' color=red size=3>Something went Wrong. Please try again later.</font>";
-                    } else if ($flag == 3) {
-
-                        echo "<font id='later' style='padding:10px;background:gainsboro;' color=red size=3>Please Try Later</font>";
-                    } else if ($flag == 4) {
-
-                        echo "<font id='later' style='padding:10px;background:gainsboro;' color=red size=3>Max 2MB</font>";
-                    } else if ($flag == 5) {
-
-                        echo "<font id='later' style='padding:10px;background:gainsboro;' color=red size=3>No image selected.</font>";
-                    }
+            if (isset($_SESSION['uid'])) {
 
             ?>
+
+        <form method="post" action="" enctype="multipart/form-data">
+
+            <?php if ($msg1 != "" && isset($msg1)) {
+                echo $msg1 . "<br>";
+            } ?>
+            <div class="mb-3">
+                <!-- <label for="exampleFormControlInput1" class="form-label">Email address</label> -->
+                <input style="text-align:center;" type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Current Password">
+            </div>
+            <div class="mb-3">
+                <!-- <label for="exampleFormControlInput1" class="form-label">Email address</label> -->
+                <input style="text-align:center;" type="password" class="form-control" id="npassword" name="npassword" placeholder="New Password">
+            </div>
+            <div class="mb-3">
+                <!-- <label for="exampleFormControlInput1" class="form-label">Email address</label> -->
+                <input style="text-align:center;" type="password" class="form-control" id="cnpassword" name="cnpassword" placeholder="Confirm New Password">
+            </div>
+
+            <br>
+
+            <input class="btn btn-primary" style="font-size:17px;" type=submit name=update value="Update"><br><br>
+
+        </form>
+
+        <?php
+
+        if ($flag == 1) {
+
+            echo "<font id='saved' style='padding:10px;background:gainsboro;' color=green size=3>Successfully Changed</font>";
+        } else if ($flag == 2) {
+
+            echo "<font id='wrong' style='padding:10px;background:gainsboro;' color=red size=3>Something went Wrong. Please try again later.</font>";
+        } else if ($flag == 3) {
+
+            echo "<font id='later' style='padding:10px;background:gainsboro;' color=red size=3>Please Try Later</font>";
+        } else if ($flag == 4) {
+
+            echo "<font id='later' style='padding:10px;background:gainsboro;' color=red size=3>Max 2MB</font>";
+        } else if ($flag == 5) {
+
+            echo "<font id='later' style='padding:10px;background:gainsboro;' color=red size=3>No image selected.</font>";
+        }
+
+        ?>
 
 
 
@@ -320,35 +353,35 @@ if (isset($_SESSION['uid'])) {
 
         <?php
 
-                } else {
+        } else {
 
-                    echo "Login to see this";
+            echo "Login to see this";
 
-                    // Code for inspiring them to signup / login
+            // Code for inspiring them to signup / login
 
-                }
+        }
 
         ?>
 
         </p>
 
-        </center>
+    </center>
 
-    </div>
+</div>
 
-    <script>
-        function logout() {
+<script>
+    function logout() {
 
-            window.location.href = "../signout";
+        window.location.href = "../signout";
 
-        }
+    }
 
-        function profile() {
+    function profile() {
 
-            window.location.href = "../profile";
+        window.location.href = "../profile";
 
-        }
-    </script>
+    }
+</script>
 
 </body>
 
