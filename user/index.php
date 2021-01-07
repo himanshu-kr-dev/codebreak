@@ -80,11 +80,23 @@ $row = mysqli_fetch_assoc($query);
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">About</a>
+                    <a class="nav-link " aria-current="page" href="#">About</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../problems/">Problems</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../news/">News</a>
+                </li>
+                <?php
+                if($conf==1){
+                    ?>
+                    <li class="nav-item">
+                        <a class="body-text" style="font-size: 15px;text-decoration: none;color: #414141;" href="../logout/">Logout</a>
+                    </li>
+                    <?php
+                }
+                ?>
             </ul>
         </div>
     </div>
@@ -98,11 +110,8 @@ $row = mysqli_fetch_assoc($query);
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Settings</a>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Change Avatar</a></li>
-            <li><a class="dropdown-item" href="#">Change Password</a></li>
-            <li><a class="dropdown-item" href="#">Change Details</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Separated link</a></li>
+            <li><a class="dropdown-item" href="../edit/">Edit Details</a></li>
+            <li><a class="dropdown-item" href="../changepwd/">Change Password</a></li>
         </ul>
     </li>
     <li class="nav-item">
@@ -118,7 +127,7 @@ $row = mysqli_fetch_assoc($query);
         <div class="card mb-3" style="max-width: 800px;">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img id="proPic" style="height: 300px; width: 250px;" src="../userpics/gilfoyle.jpg" alt="...">
+                    <img id="proPic" style="height: 300px; width: 250px;" src="../assets/dp/<?php echo $row['profilephoto']?>" alt="...">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
