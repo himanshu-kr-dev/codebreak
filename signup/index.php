@@ -116,7 +116,11 @@ if (isset($_POST['verify'])) {
         $_SESSION['uid'] = $username;
         $sql = "insert into users(fname,lname,email,password,username,verified) values('$fname','$lname','$email','$password','$username','1')";
         $query2 =  mysqli_query($con, $sql);
-        if ($query2) {
+        $fp = fopen('../submission_data/' . $username . '.json', 'w+');
+        fclose($fp);
+        $fp2 = fopen('../submission_data/' . $username . '.all.json', 'w+');
+        fclose($fp2);
+        if ($query2 && $fp && $fp2) {
             $c = 3;
             $v = 1;
             unset($_SESSION['det']);
@@ -145,28 +149,34 @@ if (isset($_POST['verify'])) {
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300&display=swap" rel="stylesheet">
     <title>Break Code</title>
     <style>
-        .navbar-brand{
+        .navbar-brand {
             font-family: 'Press Start 2P', cursive;
         }
-        .nav-link{
+
+        .nav-link {
             font-family: 'Press Start 2P', cursive;
         }
-        .accordion{
-            margin:50px;
+
+        .accordion {
+            margin: 50px;
         }
-        .answer{
+
+        .answer {
             width: 300px;
             height: 50px;
             border: 1px solid black;
             border-radius: 10px;
             padding: 10px;
         }
-        .alert{
+
+        .alert {
             width: 800px;
         }
-        .body-text{
+
+        .body-text {
             font-family: 'Fira Code', monospace;
         }
+
         .footer {
             position: fixed;
             left: 0;
@@ -258,92 +268,92 @@ function showHint(str) {
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="../">Code Break</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="problems/">Problems</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Forum</a>
-                </li>
-            </ul>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../">Code Break</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="problems/">Problems</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Forum</a>
+                    </li>
+                </ul>
+            </div>
         </div>
+
+    </nav>
+    <div class=c2>
+        <center>
+            <div class="card">
+                <?php if ($c == 0) { ?>
+                    <br>Signup<br><br>
+                    <form method=post action="">
+                        <input class="formstyle" type="text" name="fname" placeholder="First Name" value="<?php if (isset($_POST['fname'])) {
+                                                                                                                echo $_POST['fname'];
+                                                                                                            } ?>">
+                        <br><br>
+                        <input class="formstyle" type="text" name="lname" placeholder="Last Name" value="<?php if (isset($_POST['lname'])) {
+                                                                                                                echo $_POST['lname'];
+                                                                                                            } ?>">
+                        <br><br>
+                        <input id=email autocomplete=off class="formstyle" type="email" name="email" placeholder="Email" value="<?php if (isset($_POST['email'])) {
+                                                                                                                                    echo $_POST['email'];
+                                                                                                                                } ?>"><br>
+                        <br>
+                        <input class="formstyle" type="password" name="password" placeholder="Password">
+                        <br><br>
+                        <?php if ($msg1 != "" && isset($msg1)) {
+                            echo $msg1 . "<br>";
+                        } ?>
+
+                        <input class="formstyle" style="cursor:pointer;width:100px;background:orange;color:white;border:none;" type="submit" name="submit" value="Signup">
+                    </form>
+                <?php } else if ($c == 1) {
+                ?>
+                    <form method=post action="">
+                        <input class="formstyle" type="number" name="vcode" placeholder="Enter Verification Code">
+
+                        <br><br>
+
+                        <?php
+                        if ($v == 2) {
+                            echo "Wrong code<br><br>";
+                        }
+                        ?>
+                        <input class="formstyle" style="cursor:pointer;width:100px;background:orange;color:white;border:none;" type="submit" name="verify" value="Verify">
+                    </form>
+                <?php
+                } ?>
+                <?php if ($v == 1) {
+                    echo "Verified<br>You will be redirected to dashboard<br>";
+                ?>
+                    <script>
+                        setTimeout(function() {
+                            window.location.href = '../';
+                        }, 5000);
+                    </script>
+                <?php
+                } ?>
+                <?php if ($v == 3) {
+                    echo "Something went wrong. Try again later.<br>";
+                }
+                ?>
+            </div>
+
+        </center>
     </div>
-
-</nav>
-        <div class=c2>
-            <center>
-                <div class="card">
-                    <?php if ($c == 0) { ?>
-                        <br>Signup<br><br>
-                        <form method=post action="">
-                            <input class="formstyle" type="text" name="fname" placeholder="First Name" value="<?php if (isset($_POST['fname'])) {
-                                                                                                                    echo $_POST['fname'];
-                                                                                                                } ?>">
-                            <br><br>
-                            <input class="formstyle" type="text" name="lname" placeholder="Last Name" value="<?php if (isset($_POST['lname'])) {
-                                                                                                                    echo $_POST['lname'];
-                                                                                                                } ?>">
-                            <br><br>
-                            <input id=email autocomplete=off class="formstyle" type="email" name="email" placeholder="Email" value="<?php if (isset($_POST['email'])) {
-                                                                                                                                        echo $_POST['email'];
-                                                                                                                                    } ?>"><br>
-                            <br>
-                            <input class="formstyle" type="password" name="password" placeholder="Password">
-                            <br><br>
-                            <?php if ($msg1 != "" && isset($msg1)) {
-                                echo $msg1 . "<br>";
-                            } ?>
-
-                            <input class="formstyle" style="cursor:pointer;width:100px;background:orange;color:white;border:none;" type="submit" name="submit" value="Signup">
-                        </form>
-                    <?php } else if ($c == 1) {
-                    ?>
-                        <form method=post action="">
-                            <input class="formstyle" type="number" name="vcode" placeholder="Enter Verification Code">
-
-                            <br><br>
-
-                            <?php
-                            if ($v == 2) {
-                                echo "Wrong code<br><br>";
-                            }
-                            ?>
-                            <input class="formstyle" style="cursor:pointer;width:100px;background:orange;color:white;border:none;" type="submit" name="verify" value="Verify">
-                        </form>
-                    <?php
-                    } ?>
-                    <?php if ($v == 1) {
-                        echo "Verified<br>You will be redirected to dashboard<br>";
-                    ?>
-                        <script>
-                            setTimeout(function() {
-                                window.location.href = '../';
-                            }, 5000);
-                        </script>
-                    <?php
-                    } ?>
-                    <?php if ($v == 3) {
-                        echo "Something went wrong. Try again later.<br>";
-                    }
-                    ?>
-                </div>
-
-            </center>
-        </div>
     </div>
-<div class="footer">
-    <p>Copyright 2021 Daero | Privacy Policy</p>
-</div>
+    <div class="footer">
+        <p>Copyright 2021 Daero | Privacy Policy</p>
+    </div>
 </body>
 
 </html>
